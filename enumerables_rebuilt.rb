@@ -2,42 +2,42 @@ module Enumerable
   def my_each
     i = 0
     while i < self.length
-	  yield(self[i])
-	  i += 1
-	end
-	return self
+      yield(self[i])
+      i += 1
+    end
+    return self
   end
   
   def my_each_with_index
     i = 0
-	while i < self.length
-	  yield(self[i], i)
-	  i += 1
-	end
+    while i < self.length
+      yield(self[i], i)
+      i += 1
+    end
     return self
   end
   
   def my_select
     result = []
     self.my_each { |x| result.push(x) if yield(x) }
-	return result
+    return result
   end
   
   def my_all?
     result = true
     self.my_each { |x| result = false if !yield(x) }
-	return result
+    return result
   end
   
   def my_any?
     result = false
-	self.my_each { |x| result = true if yield(x) }
-	return result
+    self.my_each { |x| result = true if yield(x) }
+    return result
   end
   
   def my_none?
     result = true
-	self.my_each { |x| result = false if yield(x) }
+    self.my_each { |x| result = false if yield(x) }
     return result
   end
   
@@ -45,40 +45,40 @@ module Enumerable
     count = 0
     if arg
       self.my_each { |x| count += 1 if x == arg }
-	elsif !block_given?
-	  count = self.length
-	else
-	  self.my_each { |x| count += 1 if yield(x)}
-	end
-	return count
+    elsif !block_given?
+      count = self.length
+    else
+      self.my_each { |x| count += 1 if yield(x)}
+    end
+    return count
   end
   
   def my_map
     result = []
-	self.my_each { |x| result << yield(x) }
-	return result
+    self.my_each { |x| result << yield(x) }
+    return result
   end
   
   def my_inject (init = self[0])
     result = init
-	self[1..self.length].my_each { |x| result = yield(result, x) }
-	return result
+    self[1..self.length].my_each { |x| result = yield(result, x) }
+    return result
   end
   
   def my_map_v2 (proc)
     result = []
-	self.my_each { |x| result << proc.call(x) }
-	return result
+    self.my_each { |x| result << proc.call(x) }
+    return result
   end
   
   def my_map_v3 (proc=nil)
     result = []
     if block_given?
-	  self.my_each { |x| result << yield(x) }
-	else
-	  self.my_each { |x| result << proc.call(x) }
-	end
-	return result
+      self.my_each { |x| result << yield(x) }
+    else
+      self.my_each { |x| result << proc.call(x) }
+    end
+    return result
   end
 end
 
